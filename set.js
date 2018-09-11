@@ -1,6 +1,6 @@
 /****Sets****
   FILO/LIFO????
-  functions: hsa, values, add, remove
+  functions: has, values, add, remove
   Use to check for the presence of an item
 */
 
