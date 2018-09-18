@@ -172,13 +172,13 @@ class BST {
     return (this.findMinHeight() >= this.findMaxHeight() -1);
   }
 
-  findMinHeight(node = this.root) { //if no node is passed in, use root
-    if (node == null)
+  findMinHeight(node = this.root) {
+    if(node == null)
     {
       return -1;
     }
-    let left = findMinHeight(node.left);
-    let right = findMinHeight(node.right);
+    let left = this.findMinHeight(node.left);
+    let right = this.findMinHeight(node.right);
     if (left < right)
     {
       return left + 1;
@@ -189,13 +189,13 @@ class BST {
     }
   }
 
-  findMaxHeight(node = this.root) { //if no node is passed in, use root
+  findMaxHeight(node = this.root) {
     if (node == null)
     {
       return -1;
     }
-    let left = findMaxHeight(node.left);
-    let right = findMaxHeight(node.right);
+    let left = this.findMaxHeight(node.left);
+    let right = this.findMaxHeight(node.right);
     if (left > right)
     {
       return left + 1;
@@ -214,7 +214,7 @@ class BST {
     else
     {
       let result = new Array();
-      function traverseInOrder(node.left)
+      function traverseInOrder(node)
       {
         node.left && traverseInOrder(node.left); // if node.left is true, call function
         result.push(node.data);
@@ -234,7 +234,7 @@ class BST {
     else
     {
       let result = new Array();
-      function traversePreOrder(node.left)
+      function traversePreOrder(node)
       {
         result.push(node.data);
         node.left && traversePreOrder(node.left); // if node.left is true, call function
@@ -253,7 +253,7 @@ class BST {
     else
     {
       let result = new Array();
-      function traversePostOrder(node.left)
+      function traversePostOrder(node)
       {
         node.left && traversePostOrder(node.left); // if node.left is true, call function
         node.right && traversePostOrder(node.right);
@@ -270,17 +270,30 @@ class BST {
     if (this.root != null)
     {
       Q.push(this.root);
-      
+      while (Q.length > 0)
+      {
+        let node = Q.shift();
+        result.push(node.data);
+        if (node.left != null)
+        {
+          Q.push(node.left);
+        }
+        if (node.right != null)
+        {
+          Q.push(node.right);
+        }
+      }
+      return result;
     }
     else
     {
+      return null;
     }
-
   }
-
 }
 
 const bst = new BST();
+
 bst.add(4);
 bst.add(2);
 bst.add(6);
@@ -289,10 +302,39 @@ bst.add(3);
 bst.add(5);
 bst.add(7);
 bst.remove(4);
-console.log(bst.findMin());
-console.log(bst.findMax());
+console.log("Min: ", bst.findMin());
+console.log("Max: ", bst.findMax());
 bst.remove(7);
-console.log(bst.findMax());
-console.log(bst.isPresent(4));
+console.log("Max: ", bst.findMax());
+console.log("4 is present: ", bst.isPresent(4));
 
 
+
+bst.remove(2);
+bst.remove(6);
+bst.remove(1);
+bst.remove(3);
+bst.remove(5);
+bst.remove(7);
+
+bst.add(9);
+bst.add(4);
+bst.add(17);
+bst.add(3);
+bst.add(6);
+bst.add(22);
+bst.add(5);
+bst.add(7);
+bst.add(20);
+
+console.log("MinHeight: ", bst.findMinHeight());
+console.log("MaxHeight: ", bst.findMaxHeight());
+console.log("Tree is balanced: ", bst.isBalanced());
+bst.add(10);
+console.log("MinHeight: ", bst.findMinHeight());
+console.log("MaxHeight: ", bst.findMinHeight());
+console.log("Tree is balanced: ", bst.isBalanced());
+console.log("inOrder: ", bst.inOrder());
+console.log("preOrder: ", bst.preOrder());
+console.log("postOrder: ", bst.postOrder());
+console.log("levelOrder: ", bst.levelOrder());
